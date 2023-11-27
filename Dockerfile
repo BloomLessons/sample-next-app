@@ -20,14 +20,13 @@ RUN echo NODE_ENV=${NODE_ENV} && \
 
 FROM node:18-alpine as runner
 WORKDIR /usr/src/app
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+
 ARG PORT=80
 ENV PORT=${PORT}
 COPY --from=builder /usr/src/app/next.config.js .
 COPY --from=builder /usr/src/app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/static
+COPY --from=builder /usr/src/app/.next/standalone ./
+COPY --from=builder /usr/src/app/.next/static ./.next/static
 COPY --from=builder /usr/src/app/package.json .
 COPY --from=builder /usr/src/app/yarn.lock .
 
