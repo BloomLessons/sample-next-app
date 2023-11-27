@@ -31,7 +31,7 @@ COPY --from=builder /usr/src/app/package.json .
 COPY --from=builder /usr/src/app/yarn.lock .
 
 USER nextjs
-EXPOSE 80
+EXPOSE 3000
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
