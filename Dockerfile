@@ -21,7 +21,7 @@ RUN echo NODE_ENV=${NODE_ENV} && \
 FROM node:18-alpine as runner
 WORKDIR /usr/src/app
 
-ARG PORT=80
+ARG PORT=3000
 ENV PORT=${PORT}
 COPY --from=builder /usr/src/app/next.config.js .
 COPY --from=builder /usr/src/app/public ./public
@@ -30,7 +30,7 @@ COPY --from=builder /usr/src/app/.next/static ./.next/static
 COPY --from=builder /usr/src/app/package.json .
 COPY --from=builder /usr/src/app/yarn.lock .
 
-EXPOSE 3000
+EXPOSE ${PORT}
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
