@@ -21,7 +21,7 @@ export default function Home() {
         <div className={styles.grid}>
           <a href="https://www.linkedin.com/company/bloom-lessons" className={styles.card}>
             <h3>LinkedIn &rarr;</h3>
-            <p>Stay up to data with our LinkedIn updates and posts</p>
+            <p>Stay up to date with our LinkedIn updates and posts</p>
           </a>
 
           <a href="https://www.youtube.com/channel/UCQs-Wfxvh3fR14tvfpBSj9Q" className={styles.card}>
