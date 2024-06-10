@@ -1,11 +1,13 @@
 # install dependencies
-FROM node:18-alpine as deps
+FROM node:18-alpine as base
+
+FROM base as deps
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN apk add --no-cache libc6-compat && \
     yarn install --frozen-lockfile
 
-FROM node:18-alpine as builder
+FROM base as builder
 WORKDIR /usr/src/app
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -18,10 +20,10 @@ RUN echo NODE_ENV=${NODE_ENV} && \
     NODE_ENV=${NODE_ENV} yarn build
 
 
-FROM node:18-alpine as runner
+FROM base as runner
 WORKDIR /usr/src/app
 
-ARG PORT=3000
+ARG PORT=80
 ENV PORT=${PORT}
 COPY --from=builder /usr/src/app/next.config.js .
 COPY --from=builder /usr/src/app/public ./public

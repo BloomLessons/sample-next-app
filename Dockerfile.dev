@@ -9,5 +9,5 @@ ARG PORT=80
 ENV PORT=${PORT}
 COPY . .
 RUN yarn build
-
+EXPOSE ${PORT}
 CMD [ "npm", "start" ]
