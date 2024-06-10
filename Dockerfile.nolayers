@@ -11,13 +11,12 @@ ENV NODE_ENV=${NODE_ENV}
 ARG PORT=80
 ENV PORT=${PORT}
 RUN echo NODE_ENV=${NODE_ENV} && \
-    echo PORT=${PORT} && \
+    echo PORT=${PORT} && \ 
+    sed -i "s/output/\/\/output/g" next.config.js && \
     NODE_ENV=${NODE_ENV} yarn build
-
-# COPY .next/standalone ./
 
 EXPOSE ${PORT}
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD [ "node", "--max-http-header-size=16000", "server.js" ]
+CMD [ "npm", "start" ]
