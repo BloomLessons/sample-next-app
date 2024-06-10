@@ -11,7 +11,7 @@ export default function Home() {
 
       <main>
         <h1 className={styles.title}>
-          Welcome to <a href="https://bloomlessons.con">Bloom Lessons!</a>
+          Welcome to <a href="https://bloomlessons.com">Bloom Lessons!</a>
         </h1>
 
         <p className={styles.description}>
