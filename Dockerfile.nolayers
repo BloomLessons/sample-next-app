@@ -1,0 +1,23 @@
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
+RUN apk add --no-cache libc6-compat && \
+    yarn install --frozen-lockfile
+
+COPY . .
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+ARG PORT=80
+ENV PORT=${PORT}
+RUN echo NODE_ENV=${NODE_ENV} && \
+    echo PORT=${PORT} && \
+    NODE_ENV=${NODE_ENV} yarn build
+
+# COPY .next/standalone ./
+
+EXPOSE ${PORT}
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+CMD [ "node", "--max-http-header-size=16000", "server.js" ]
